@@ -1,0 +1,6 @@
+source "Kconfig.zephyr"
+
+config RTSS_HP_HAS_RTT_SUPPORT
+    bool
+    default y
+    select HAS_SEGGER_RTT
