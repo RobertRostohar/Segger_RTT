@@ -1,0 +1,22 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "CM3",
+            "type": "arm-debugger.configdb",
+            "request": "launch",
+            "cdbEntry": "Arm FVP::MPS2_Cortex_M3::Bare Metal Debug::Bare Metal Debug::Cortex-M3",
+            "cdbEntryParams": {
+                "model_params_file": [
+                    "${workspaceFolder}\\Target\\CM3\\fvp_config.txt"
+                ]
+            },
+            "programs": [
+                "${command:arm-debugger.getApplicationFile}"
+            ],
+            "runControl": {
+                "debugFromEntrypoint": true
+            }
+        }
+    ]
+}
