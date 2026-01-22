@@ -12,7 +12,8 @@ project:
     - component: CMSIS:OS Tick:SysTick
     - component: CMSIS:RTOS2:FreeRTOS&Cortex-M
     - component: CMSIS-View:Event Recorder&Semihosting
-    
+      for-context: .DebugEVR
+
     - component: RTOS&FreeRTOS:Core&Cortex-M
     - component: RTOS&FreeRTOS:Config&CMSIS RTOS2
     - component: RTOS&FreeRTOS:Event Groups
@@ -26,6 +27,26 @@ project:
     - group: Application
       files:
         - file: hello.c
+    - group: RTT
+      for-context: .DebugSystemView
+      files:
+        - file: ../../../../RTT/Config/SEGGER_RTT_Conf.h
+        - file: ../../../../RTT/RTT/SEGGER_RTT.h
+        - file: ../../../../RTT/RTT/SEGGER_RTT.c
+        - file: ../../../../RTT/RTT/SEGGER_RTT_ASM_ARMv7M.S
+    - group: SystemView
+      for-context: .DebugSystemView
+      files:
+        - file: ../../../../SystemView/SEGGER/SEGGER.h
+        - file: ../../../../SystemView/Config/SEGGER_SYSVIEW_Conf.h
+        - file: ../../../../SystemView/SYSVIEW/SEGGER_SYSVIEW.h
+        - file: ../../../../SystemView/SYSVIEW/SEGGER_SYSVIEW.c
+      groups:
+        - group: FreeRTOS
+          files:
+            - file: ../../../../SystemView/Sample/FreeRTOSV11/Config/Cortex-M/SEGGER_SYSVIEW_Config_FreeRTOS.c
+            - file: ../../../../SystemView/Sample/FreeRTOSV11/SEGGER_SYSVIEW_FreeRTOS.h
+            - file: ../../../../SystemView/Sample/FreeRTOSV11/SEGGER_SYSVIEW_FreeRTOS.c
     - group: Board
       files:
         - file: main.c
@@ -33,3 +54,9 @@ project:
   layers:
     - layer: $Target-Layer$
       type: Target
+
+  output:
+    type:
+      - elf
+      - hex
+      - map

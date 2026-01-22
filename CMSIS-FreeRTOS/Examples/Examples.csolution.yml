@@ -35,7 +35,12 @@ solution:
         - Target-Layer: ../../Target/CM3/Target.clayer.yml
 
   build-types:
-    - type: Debug
+    - type: DebugEVR
+      optimize: none
+      debug: on
+    - type: DebugSystemView
+      define:
+        - CONFIG_SEGGER_SYSTEMVIEW: 1
       optimize: none
       debug: on
 

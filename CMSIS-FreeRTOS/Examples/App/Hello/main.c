@@ -21,9 +21,18 @@
 #include  CMSIS_device_header
 #include "cmsis_os2.h"
 
+#if (defined(CONFIG_SEGGER_SYSTEMVIEW) && (CONFIG_SEGGER_SYSTEMVIEW == 1))
+#include "SEGGER_SYSVIEW.h"
+#endif
+
 #include "main.h"
 
 int main (void) {
+
+#if (defined(CONFIG_SEGGER_SYSTEMVIEW) && (CONFIG_SEGGER_SYSTEMVIEW == 1))
+  /* Initialize SEGGER SystemView */
+  SEGGER_SYSVIEW_Conf();
+#endif
 
   osKernelInitialize();                 // Initialize CMSIS-RTOS2
   app_initialize();                     // Initialize application

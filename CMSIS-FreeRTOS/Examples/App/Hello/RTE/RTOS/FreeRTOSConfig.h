@@ -385,8 +385,13 @@
   #define SysTick_Handler                         xPortSysTickHandler
 
   #if (defined(__ARMCC_VERSION) || defined(__GNUC__) || defined(__ICCARM__))
-  /* Include debug event definitions */
-  #include "freertos_evr.h"
+    #if (defined(CONFIG_SEGGER_SYSTEMVIEW) && (CONFIG_SEGGER_SYSTEMVIEW == 1))
+      /* Include SEGGER SystemView definitions */
+      #include "SEGGER_SYSVIEW_FreeRTOS.h"
+    #else
+      /* Include debug event definitions */
+      #include "freertos_evr.h"
+    #endif
   #endif
 #endif
 
