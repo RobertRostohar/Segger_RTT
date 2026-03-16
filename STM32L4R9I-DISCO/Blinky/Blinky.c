@@ -25,6 +25,10 @@
 #include "cmsis_os2.h"                  // ::CMSIS:RTOS2
 #include "cmsis_vio.h"
 
+#ifdef USE_SEGGER_SYSVIEW
+#include "SEGGER_SYSVIEW.h"
+#endif
+
 static osThreadId_t tid_thrLED;         // Thread id of thread: LED
 static osThreadId_t tid_thrButton;      // Thread id of thread: Button
 
@@ -43,8 +47,11 @@ static __NO_RETURN void thrLED (void *argument) {
       active_flag ^= 1U;
     }
 
+#ifdef USE_SEGGER_SYSVIEW
+    SEGGER_SYSVIEW_PrintfHost("Counter: %d\n", counter);
+#endif
     printf("Counter: %lu\n", counter++);
-  
+
     if (counter == 10U) {
       printf("Press any key ...\n");
       character = getchar();
@@ -95,6 +102,9 @@ static __NO_RETURN void thrButton (void *argument) {
 __NO_RETURN void app_main_thread (void *argument) {
 
   printf("Blinky example\n");
+#ifdef USE_SEGGER_SYSVIEW
+  SEGGER_SYSVIEW_Print("Blinky example with SEGGER SystemView instrumentation\n");
+#endif
 
   tid_thrLED = osThreadNew(thrLED, NULL, NULL);         // Create LED thread
   tid_thrButton = osThreadNew(thrButton, NULL, NULL);   // Create Button thread
@@ -107,6 +117,10 @@ __NO_RETURN void app_main_thread (void *argument) {
  * Application initialization
  *----------------------------------------------------------------------------*/
 int app_main (void) {
+#ifdef USE_SEGGER_SYSVIEW
+  SEGGER_SYSVIEW_Conf();
+  // while (!SEGGER_SYSVIEW_IsStarted());
+#endif
   osKernelInitialize();                         /* Initialize CMSIS-RTOS2 */
   osThreadNew(app_main_thread, NULL, NULL);
   osKernelStart();                              /* Start thread execution */

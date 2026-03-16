@@ -23,6 +23,22 @@ solution:
     - type: STM32L4R9I-DISCO
       board: STMicroelectronics::STM32L4R9I-DISCO
       device: STMicroelectronics::STM32L4R9AIIx
+      target-set:
+        - set:
+          images:
+            - project-context: Blinky.Debug
+          debugger:
+            name: ST-Link@pyOCD
+            clock: 4000000
+            protocol: swd
+            rtt:
+              - channel:
+                  - number: 0
+                    mode: stdio
+                  - number: 1
+                    mode: systemview
+            telnet:
+              - mode: console
 
   # List of different build configurations.
   build-types:
