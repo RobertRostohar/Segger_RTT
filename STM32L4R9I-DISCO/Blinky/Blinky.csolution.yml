@@ -17,6 +17,8 @@ solution:
     - pack: ARM::CMSIS@>=6.0.0
     - pack: ARM::CMSIS-Compiler@>=2.0.0
     - pack: ARM::CMSIS-RTX@>=5.9.0
+    - pack: SEGGER::RTT
+    - pack: SEGGER::SystemView
 
   # List different hardware targets that are used to deploy the solution.
   target-types:

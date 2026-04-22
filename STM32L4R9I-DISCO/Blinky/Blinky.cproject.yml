@@ -17,13 +17,15 @@ project:
     - component: CMSIS:RTOS2:Keil RTX5&Source
 
     - component: CMSIS-Compiler:CORE
-    - component: CMSIS-Compiler:STDIN:Custom
-    - component: CMSIS-Compiler:STDOUT:Custom
-    - component: CMSIS-Compiler:STDERR:Custom
+    - component: CMSIS-Compiler:STDIN:RTT
+    - component: CMSIS-Compiler:STDOUT:RTT
+    - component: CMSIS-Compiler:STDERR:RTT
 
     - component: CMSIS Driver:GPIO
     - component: CMSIS Driver:USART
     - component: CMSIS Driver:VIO:Board
+    - component: SEGGER:RTT
+    - component: SEGGER:SystemView&NoOS
 
   # List of source groups and files added to a project or a layer.
   groups:
@@ -33,20 +35,6 @@ project:
     - group: Source Files
       files:
         - file: Blinky.c
-    - group: RTT
-      files:
-        - file: ../../RTT/Config/SEGGER_RTT_Conf.h
-        - file: ../../RTT/RTT/SEGGER_RTT.h
-        - file: ../../RTT/RTT/SEGGER_RTT.c
-        - file: ../../RTT/RTT/SEGGER_RTT_ASM_ARMv7M.S
-        - file: ../../RTT/Retarget/stdio_rtt.c
-    - group: SystemView
-      files:
-        - file: ../../SystemView/Config/SEGGER_SYSVIEW_Conf.h
-        - file: ../../SystemView/SEGGER/SEGGER.h
-        - file: ../../SystemView/SYSVIEW/SEGGER_SYSVIEW.h
-        - file: ../../SystemView/SYSVIEW/SEGGER_SYSVIEW.c
-        - file: ../../SystemView/SYSVIEW/SEGGER_SYSVIEW_Config_NoOS.c
 
   linker:
     - script: ./RTE/Device/STM32L4R9AIIx/ac6_linker_script.sct.src

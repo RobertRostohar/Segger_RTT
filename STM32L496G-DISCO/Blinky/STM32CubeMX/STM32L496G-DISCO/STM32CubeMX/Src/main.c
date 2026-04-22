@@ -152,7 +152,7 @@ int main(void)
   MX_USB_OTG_FS_PCD_Init();
   /* USER CODE BEGIN 2 */
 
-  stdio_init();                         /* Initialize STDIO */
+//stdio_init();                         /* Initialize STDIO */
 
   vioInit();                            /* Initialize Virtual I/O */
 
