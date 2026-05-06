@@ -1,0 +1,57 @@
+layer:
+  type: Board
+  description: Default STM32L496G-DISCO board setup
+  for-board: STMicroelectronics::STM32L496G-DISCO
+
+  generators:
+    options:
+      - generator: CubeMX
+        path: ./CubeMX
+        name: Board
+
+  connections:
+    - connect: STM32L496G-DISCO Board
+      provides:
+        - CMSIS_VIO
+        - STDIN
+        - STDOUT
+        - STDERR
+        - Heap: 65536
+
+  define:
+    - CMSIS_target_header: \"STM32L496G-DISCO.h\"
+
+  packs:
+    - pack: Keil::STM32L4xx_DFP@>=3.0.0-0
+    - pack: Keil::STM32L496G-DISCO_BSP@^1.0.0-0
+    - pack: ARM::CMSIS-Driver_STM32@>=1.0.0-0
+    - pack: ARM::CMSIS@>=6.0.0
+    - pack: ARM::CMSIS-Compiler@>=2.0.0
+
+  components:
+    - component: Device:CubeMX
+
+    - component: CMSIS:CORE
+
+    - component: CMSIS Driver:GPIO
+    - component: CMSIS Driver:USART
+    - component: CMSIS Driver:VIO:Board
+
+    - component: CMSIS-Compiler:CORE
+    - component: CMSIS-Compiler:STDERR:Custom
+    - component: CMSIS-Compiler:STDOUT:Custom
+    - component: CMSIS-Compiler:STDIN:Custom
+
+  groups:
+    - group: Board
+      files:
+        - file: ./README.md
+        - file: ./STM32L496G-DISCO.h
+        - file: ./retarget_stdio.c
+          define:
+            - RETARGET_STDIO_UART: 2
+
+  linker:
+    - script:  ./RTE/Device/STM32L496AGIx/ac6_linker_script.sct.src
+      regions: ./RTE/Device/STM32L496AGIx/regions_STM32L496G-DISCO.h
+      for-compiler: AC6

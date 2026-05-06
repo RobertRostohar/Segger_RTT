@@ -10,6 +10,8 @@ solution:
     - compiler: GCC
     - compiler: IAR
 
+  compiler: AC6
+
   # Miscellaneous toolchain controls directly passed to the tools.
   misc:
     - for-compiler: AC6 # change to -gdwarf-4 for debugging using uVision
@@ -20,9 +22,46 @@ solution:
 
   # List the packs that define the device and/or board.
   packs:
+    - pack: Keil::STM32L4xx_DFP@>=3.0.0-0
+    - pack: Keil::STM32L4R9I-DISCO_BSP@>=1.0.0-0
+    - pack: Keil::STM32L496G-DISCO_BSP@^1.0.0-0
 
   # List different hardware targets that are used to deploy the solution.
   target-types:
+    - type: STM32L4R9I-DISCO
+      board: STMicroelectronics::STM32L4R9I-DISCO
+      variables:
+        - Board-Layer: $SolutionDir()$/Board/STM32L4R9I-DISCO/Board.clayer.yml
+      target-set:
+        - set:
+          images:
+            - project-context: Blinky.Debug
+          debugger:
+            name: ST-Link@pyOCD
+            clock: 4000000
+            protocol: swd
+            rtt:
+              - channel:
+                  - number: 0
+                    mode: stdio
+                  - number: 1
+                    mode: systemview
+            telnet:
+              - mode: console
+    - type: STM32L496G-DISCO
+      board: STMicroelectronics::STM32L496G-DISCO
+      variables:
+        - Board-Layer: $SolutionDir()$/Board/STM32L496G-DISCO/Board.clayer.yml
+      target-set:
+        - set:
+          images:
+            - project-context: Blinky.Debug
+          debugger:
+            name: J-Link Server
+            clock: 4000000
+            protocol: swd
+            telnet:
+              - mode: console
 
   # List of different build configurations.
   build-types:

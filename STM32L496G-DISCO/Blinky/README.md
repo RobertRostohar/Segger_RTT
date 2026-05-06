@@ -1,3 +1,4 @@
+
 # Blinky project
 
 The **Blinky** project is a simple example that can be used to verify the
@@ -18,3 +19,13 @@ is available with various real-time operating systems, for example RTX5 or FreeR
 |:----------------------|:--------------------------------------
 | vioBUTTON0            | Joystick select (B2)
 | vioLED0               | LED green       (LD2)
+
+## Debug configuration
+
+### J-Link GDB Server
+
+Execute the following GDB command to enable RTT via Telnet port:
+
+```txt
+"monitor exec SetRTTTelnetPort <port>"
+```
