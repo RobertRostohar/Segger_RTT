@@ -1,6 +1,11 @@
 # A project translates into one executable or library.
 project:
 
+  define:
+    - USE_SEGGER_SYSVIEW
+    - SEGGER_SYSVIEW_RTT_CHANNEL: 1
+    # - SEGGER_SYSVIEW_START_ON_INIT: 1
+
   # List components to use for your application.
   # A software component is a re-usable unit that may be configurable.
   components:
@@ -20,6 +25,7 @@ project:
     - component: CMSIS Driver:USART
     - component: CMSIS Driver:VIO:Board
     - component: SEGGER:RTT
+    - component: SEGGER:SystemView&NoOS
 
   # List of source groups and files added to a project or a layer.
   groups:
